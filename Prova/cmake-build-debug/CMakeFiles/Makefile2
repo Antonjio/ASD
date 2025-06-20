@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Prova
+CMAKE_SOURCE_DIR = /mnt/c/Users/anton/Desktop/ASD/ASD/Prova
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Prova/cmake-build-debug
+CMAKE_BINARY_DIR = /mnt/c/Users/anton/Desktop/ASD/ASD/Prova/cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -81,14 +81,14 @@ clean: CMakeFiles/Prova.dir/clean
 CMakeFiles/Prova.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Prova.dir/build.make CMakeFiles/Prova.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Prova.dir/build.make CMakeFiles/Prova.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Prova/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target Prova"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/Users/anton/Desktop/ASD/ASD/Prova/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target Prova"
 .PHONY : CMakeFiles/Prova.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Prova.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Prova/cmake-build-debug/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/anton/Desktop/ASD/ASD/Prova/cmake-build-debug/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Prova.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Prova/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/anton/Desktop/ASD/ASD/Prova/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Prova.dir/rule
 
 # Convenience name for target.

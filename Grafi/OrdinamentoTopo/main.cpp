@@ -13,176 +13,156 @@ enum Color{white,gray,black};
 
 class Node{
 private:
+    int key;
     Node* p;
-    Color colore;
-    int val;
     int d;
     int f;
-    int distance;
     vector<Node*> adj;
-public:
-    Node(int val) : val(val),p(nullptr),colore(white),d(INT_MAX),f(INT_MAX),distance(INT_MAX){}
+    Color colore;
+    int time;
+    int distance;
 
-    int getVal(){return val;}
-    Color getColor(){return colore;}
+public:
+    Node(int val) : key(val), d(INT_MAX), f(INT_MAX), p(nullptr), colore(white), time(0){}
+
+    void setP(Node* node){p = node;}
+    void setD(int time){d = time;}
+    void setK(int val){key = val;}
+    void setF(int time){f = time;}
+    void setAdj(Node* node){adj.push_back(node);}
+    void setColor(Color c){colore = c;}
+    void setDistance(int s){distance = s;}
+
     Node* getP(){return p;}
     int getD(){return d;}
+    int getVal(){return key;}
     int getF(){return f;}
-    int getDistance(){return distance;}
     vector<Node*> getAdj(){return adj;}
-
-    void setVal(int valore){ val = valore; }
-    void setColor(Color c){ colore = c; }
-    void setP(Node* parent){ p = parent; }
-    void setD(int time){ d = time; }
-    void setF(int time){ f = time; }
-    void setDistance(int distanza){ distance = distanza; }
-    void setAdj(Node* node){ adj.push_back(node); }
+    Color getC(){return colore;}
+    int getDistance(){return distance;}
 
 };
-
 class Edge{
 private:
     Node* src;
     Node* dest;
-    int weight;
+    int w;
 public:
-    Edge(Node* u, Node* v, int w) : src(u), dest(v), weight(w){}
+    Edge(Node* node1, Node* node2, int weigth) : src(node1), dest(node2), w(weigth){}
+
+    void setSrc(Node* node){src = node;}
+    void setDest(Node* node){dest = node;}
+    void setW(int peso){w = peso;}
 
     Node* getSrc(){return src;}
     Node* getDest(){return dest;}
-    int getW(){return weight;}
+    int getW(){return w;}
 };
-
 class Graph{
+
 private:
     vector<Node*> nodes;
     vector<Edge*> edges;
-
-    int V,E,time;
     stack<Node*> l;
+    int V,E,time = 0;
 
-    void DFS_VISIT(Node* u){
-        u->setColor(gray);
+    void DFS_VISIT(Node* node){
+
+        node->setColor(gray);
         time++;
-        u->setD(time);
+        node->setD(time);
 
-        for(Node* v : u->getAdj()){
-            if(v->getColor() == white){
-                v->setP(u);
-                DFS_VISIT(v);
+        for(auto& adj : node->getAdj()){
+            if(adj->getC() == white){
+                adj->setP(node);
+                DFS_VISIT(adj);
             }
         }
 
-        u->setColor(black);
+        node->setColor(black);
         time++;
-        u->setF(time);
-        l.push(u);
+        node->setF(time);
+        l.push(node);
     }
-    bool isSafe(Node *v, vector<Node*>& path, int pos){
-        Node* lastNode = path[pos-1];
-        bool isAdj = false;
 
-        for(Node* adj : lastNode->getAdj()){
-            if(adj == v){
-                isAdj = true;
-                break;
-            }
-        }
-        if(!isAdj)
-            return false;
-        for(int i = 0; i < pos; i++){
-            if(path[i] == v)
-                return false;
-        }
-        return true;
-    }
-    bool hamiltonianCycle(vector<Node*>& path, int pos){
-        if(pos == V){
-            Node* lastNode = getNode(pos-1);
-            for(Node* adj : lastNode->getAdj()){
-                if( adj == path[0])
-                    return true;
-            }
-            return false;
-        }
-        for(auto& v : nodes){
-            if(isSafe(v,path,pos)){
-                path[pos] = v;
-                if(hamiltonianCycle(path,pos+1))
-                    return true;
-                path[pos] = nullptr;
-            }
-        }
-        return false;
-    }
-    void initializeSingleSource(Node* s){
-        for(auto& u : nodes){
-            u->setDistance(INT_MAX);
-            u->setP(nullptr);
-        }
-        s->setP(nullptr);
-        s->setDistance(0);
-    }
-    void relax(Edge* e){
-        if(e->getDest()->getDistance() > e->getSrc()->getDistance() + e->getW()){
-            e->getDest()->setDistance(e->getSrc()->getDistance() + e->getW());
-            e->getDest()->setP(e->getSrc());
-        }
-    }
-    struct compare{
-        bool operator()(Node* u, Node* v){
-            return u->getDistance() > v->getDistance();
-        }
-    };
 public:
-    Graph(int v, int e) : V(v), E(e), time(0){}
+    Graph(ifstream& in){
 
-    void addNode(Node* n){
-        nodes.push_back(n);
-        if(nodes.size() > V)
+        in >> V >> E;
+
+        for(int i =0; i < V; i++)
+            addNode(new Node(i));
+
+        for(int i = 0; i < E; i++){
+            int u, v, w;
+            in >> u >> v >>w;
+            Node * src = getNode(u);
+            Node * dest = getNode(v);
+            if(src && dest )
+                addEdge(src, dest, w);
+            else
+                cout<<"non è stato possibile inserire l'arco in quanto uno o entrambi i nodi non esistono"<<endl;
+
+        }
+        in.close();
+    }
+
+    void addNode(Node* node){
+        nodes.push_back(node);
+
+        if(V < nodes.size())
             V = nodes.size();
     }
-    void addEdge(Node* u, Node* v, int w){
-        edges.push_back(new Edge(u,v,w));
-        u->setAdj(v);
 
-        if(edges.size() > E){
-            E = edges.size();
-        }
-    }
-    Node* getNode(int val){
-        for (auto& node : nodes){
-            if(node->getVal() == val)
+    Node* getNode(int u){
+        for(auto& node : nodes){
+            if(node->getVal() == u)
                 return node;
         }
         return nullptr;
     }
-    Edge* getEdge(Node* u, Node* v){
-        for(auto& edge : edges){
-            if(edge->getSrc() == u && edge->getDest() == v)
+    void addEdge(Node* node1, Node* node2, int w){
+
+        edges.push_back(new Edge(node1, node2,w));
+        node1->setAdj(node2);
+        //node2->setAdj(node1);
+
+        if(E < edges.size())
+            E = edges.size();
+    }
+    Edge* getEdge(Node* src, Node* dest) {
+        for (auto& edge : edges) {
+            if ((edge->getSrc() == src && edge->getDest() == dest) ||
+                (edge->getSrc() == dest && edge->getDest() == src))
                 return edge;
         }
+
         return nullptr;
     }
     void DFS(){
-        for(auto& u : nodes){
-            u->setColor(white);
-            u->setP(nullptr);
+        for(auto&node : nodes){
+            node->setColor(white);
+            node->setP(nullptr);
         }
-        time++;
-        for(auto& u : nodes){
-            if(u->getColor() == white)
-                DFS_VISIT(u);
+        time = 0;
+        for(auto&node : nodes){
+            if(node->getC() == white)
+                DFS_VISIT(node);
         }
     }
-    void topologicalPrint(ofstream& out){
+    void print(ofstream& out){
+
         while(!l.empty()){
             Node* node = l.top();
             l.pop();
-            out<<node->getVal()<<endl;
+
+            if(node->getP() != nullptr)
+                out<<"node: "<<node->getVal()<<", predecessor: "<<node->getP()->getVal()<<", discovery time: "<<node->getD()<<", finish time: "<<node->getF()<<endl;
+            else
+                out<<"node: "<<node->getVal()<<", predecessor: NULL"<<", discovery time: "<<node->getD()<<", finish time: "<<node->getF()<<endl;
         }
     }
+
     bool findHamiltonianCycle(int pos){
         vector<Node*> path(V, nullptr);
         path[0] = getNode(pos);
@@ -252,52 +232,69 @@ public:
         for (auto& u : nodes)
             cout << "Node: " << u->getVal() << ", distance: " << u->getDistance() << endl;
     }
+    bool isSafe(Node *v, vector<Node*>& path, int pos){
+        Node* lastNode = path[pos-1];
+        bool isAdj = false;
 
+        for(Node* adj : lastNode->getAdj()){
+            if(adj == v){
+                isAdj = true;
+                break;
+            }
+        }
+        if(!isAdj)
+            return false;
+        for(int i = 0; i < pos; i++){
+            if(path[i] == v)
+                return false;
+        }
+        return true;
+    }
+    bool hamiltonianCycle(vector<Node*>& path, int pos){
+        if(pos == V){
+            Node* lastNode = getNode(pos-1);
+            for(Node* adj : lastNode->getAdj()){
+                if( adj == path[0])
+                    return true;
+            }
+            return false;
+        }
+        for(auto& v : nodes){
+            if(isSafe(v,path,pos)){
+                path[pos] = v;
+                if(hamiltonianCycle(path,pos+1))
+                    return true;
+                path[pos] = nullptr;
+            }
+        }
+        return false;
+    }
+    void initializeSingleSource(Node* s){
+        for(auto& u : nodes){
+            u->setDistance(INT_MAX);
+            u->setP(nullptr);
+        }
+        s->setP(nullptr);
+        s->setDistance(0);
+    }
+    void relax(Edge* e){
+        if(e->getDest()->getDistance() > e->getSrc()->getDistance() + e->getW()){
+            e->getDest()->setDistance(e->getSrc()->getDistance() + e->getW());
+            e->getDest()->setP(e->getSrc());
+        }
+    }
+    struct compare{
+        bool operator()(Node* u, Node* v){
+            return u->getDistance() > v->getDistance();
+        }
+    };
 };
 
-int main() {
-
+int main(){
     ifstream in("input.txt");
     ofstream out("output.txt");
 
-    int V, E;
-    in>>V>>E;
-
-    Graph grafo(V,E);
-
-    for(int i = 0; i < V; i++){
-        grafo.addNode(new Node(i));
-    }
-
-    for(int i = 0; i < E; i++){
-        int u,v,w;
-        in>>u>>v>>w;
-        Node* src = grafo.getNode(u);
-        Node* dest = grafo.getNode(v);
-
-        if(src != nullptr && dest != nullptr)
-            grafo.addEdge(src,dest,w);
-        else
-            cout<< "Non è stato possibile aggiungere l'arco perché uno o entrambi i nodi non esistono"<< endl;
-    }
+    Graph grafo(in);
     grafo.DFS();
-    grafo.topologicalPrint(out);
-    in.close();
-    out.close();
-
-    grafo.findHamiltonianCycle(0);
-    Node* s = grafo.getNode(0);
-    Node* d = grafo.getNode(3);
-    if (s != nullptr && d != nullptr)
-        grafo.bellmanFord(s, d);
-    else
-        cout <<"\nNon e' stato possibile invocare il metodo di Bellman Ford in quanto il nodo 0 e/o il nodo 3 non esistono!" << endl;
-
-    s = grafo.getNode(0);
-    if (s != nullptr)
-        grafo.dijkstra(s);
-    else
-        cout <<"\nNon e' stato possibile invocare il metodo di Dijkstra in quanto il nodo 0 non esiste!" << endl;
-
-    return 0;
+    grafo.print(out);
 }

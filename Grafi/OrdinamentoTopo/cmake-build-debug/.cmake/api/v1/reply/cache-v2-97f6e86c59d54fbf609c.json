@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/OrdinamentoTopo/cmake-build-debug"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/OrdinamentoTopo/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -679,7 +679,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/OrdinamentoTopo"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/OrdinamentoTopo"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1215,7 +1215,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/OrdinamentoTopo/cmake-build-debug"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/OrdinamentoTopo/cmake-build-debug"
 		},
 		{
 			"name" : "OrdinamentoTopo_IS_TOP_LEVEL",
@@ -1239,7 +1239,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/OrdinamentoTopo"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/OrdinamentoTopo"
 		},
 		{
 			"name" : "ProcessorCount_cmd_nproc",
