@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/IndirizzamentoAperto.dir/main.cpp.o -o IndirizzamentoAperto 

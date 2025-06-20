@@ -1,0 +1,5 @@
+Node: 0, Start visit time: 1, End visit time: 10, predecessor: NULL
+Node: 1, Start visit time: 2, End visit time: 7, predecessor: 0
+Node: 2, Start visit time: 8, End visit time: 9, predecessor: 0
+Node: 3, Start visit time: 3, End visit time: 6, predecessor: 1
+Node: 4, Start visit time: 4, End visit time: 5, predecessor: 3
