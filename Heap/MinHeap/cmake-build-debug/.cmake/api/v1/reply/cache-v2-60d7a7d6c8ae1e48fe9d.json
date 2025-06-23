@@ -2,42 +2,6 @@
 	"entries" : 
 	[
 		{
-			"name" : "BFS_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/BFS/cmake-build-debug"
-		},
-		{
-			"name" : "BFS_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "BFS_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/BFS"
-		},
-		{
 			"name" : "CMAKE_ADDR2LINE",
 			"properties" : 
 			[
@@ -91,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/BFS/cmake-build-debug"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Heap/MinHeap/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -715,7 +679,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/BFS"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Heap/MinHeap"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -959,7 +923,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "BFS"
+			"value" : "MinHeap"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1240,6 +1204,42 @@
 			],
 			"type" : "BOOL",
 			"value" : "FALSE"
+		},
+		{
+			"name" : "MinHeap_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Heap/MinHeap/cmake-build-debug"
+		},
+		{
+			"name" : "MinHeap_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "MinHeap_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Heap/MinHeap"
 		},
 		{
 			"name" : "ProcessorCount_cmd_nproc",

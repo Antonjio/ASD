@@ -2,6 +2,42 @@
 	"entries" : 
 	[
 		{
+			"name" : "ABR_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/ABR/cmake-build-debug"
+		},
+		{
+			"name" : "ABR_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "ABR_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/ABR"
+		},
+		{
 			"name" : "CMAKE_ADDR2LINE",
 			"properties" : 
 			[
@@ -55,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Heap/MaxHeap/cmake-build-debug"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/ABR/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -679,7 +715,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Heap/MaxHeap"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/ABR"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -923,7 +959,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "MaxHeap"
+			"value" : "ABR"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1204,42 +1240,6 @@
 			],
 			"type" : "BOOL",
 			"value" : "FALSE"
-		},
-		{
-			"name" : "MaxHeap_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Heap/MaxHeap/cmake-build-debug"
-		},
-		{
-			"name" : "MaxHeap_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "MaxHeap_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Heap/MaxHeap"
 		},
 		{
 			"name" : "ProcessorCount_cmd_nproc",

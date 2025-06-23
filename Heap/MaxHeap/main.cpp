@@ -67,7 +67,7 @@ public:
     }
     void heapSort(){
         buildMaxHeap();
-        for(int i = heapsize - 1; i > 0; i--){
+        for(int i = heapsize - 1; i >= 0; i--){
             swap(data[0],data[i]);
             heapsize--;
             maxHeapify(0);

@@ -1,160 +1,156 @@
 #include <iostream>
 #include <fstream>
-#include <stack>
-#include <climits>
 #include <vector>
 
 using namespace std;
 
-enum Color{white,gray,black};
-
 class Node{
 private:
-    int key;
+    int k;
     Node* p;
-    int d;
-    int f;
-    vector<Node*> adj;
-    Color colore;
-    int time;
+    Node* left;
+    Node* right;
 
 public:
-    Node(int val) : key(val), d(INT_MAX), f(INT_MAX), p(nullptr), colore(white), time(0){}
+    Node(int chiave) : k(chiave), p(nullptr), left(nullptr), right(nullptr){}
+    void setK(int key){k = key;}
+    void setP(Node* n){p = n;}
+    void setR(Node* n){right = n;}
+    void setL(Node* n){left= n;}
 
-    void setP(Node* node){p = node;}
-    void setD(int time){d = time;}
-    void setK(int val){key = val;}
-    void setF(int time){f = time;}
-    void setAdj(Node* node){adj.push_back(node);}
-    void setColor(Color c){colore = c;}
-
-    Node* getP(){return p;}
-    int getD(){return d;}
-    int getK(){return key;}
-    int getF(){return f;}
-    vector<Node*> getAdj(){return adj;}
-    Color getC(){return colore;}
-
+    Node*getP(){return p;}
+    Node*getL(){return left;}
+    Node*getR(){return right;}
+    int getK(){return k;}
 };
-class Edge{
+class ABR{
 private:
-    Node* src;
-    Node* dest;
-    int w;
-public:
-    Edge(Node* node1, Node* node2, int weigth) : src(node1), dest(node2), w(weigth){}
-
-    void setSrc(Node* node){src = node;}
-    void setDest(Node* node){dest = node;}
-    void setW(int peso){w = peso;}
-
-    Node* getSrc(){return src;}
-    Node* getDest(){return dest;}
-    int getW(){return w;}
-};
-class Graph{
-
-private:
-    vector<Node*> nodes;
-    vector<Edge*> edges;
-    stack<Node*> l;
-    int V,E,time = 0;
-
-    void DFS_VISIT(Node* node){
-
-        node->setColor(gray);
-        time++;
-        node->setD(time);
-
-        for(auto& adj : node->getAdj()){
-            if(adj->getC() == white){
-                adj->setP(node);
-                DFS_VISIT(adj);
-            }
+    Node* root;
+    Node* insertRec(Node* node, int key){
+        if(node == nullptr)
+            return new Node(key);
+        if(node->getK() > key){
+            Node* leftChild = insertRec(node->getL(),key);
+            node->setL(leftChild);
+            leftChild->setP(node);
+        } else {
+            Node* rightChild = insertRec(node->getR(),key);
+            node->setR(rightChild);
+            rightChild->setP(node);
         }
+        return node;
+    }
+    Node* minimum(Node* node){
+        while(node->getL() != nullptr)
+            node = node->getL();
+        return node;
+    }
+    Node* maximum(Node* node){
+        while(node->getR() != nullptr)
+            node = node->getR();
+        return node;
+    }
+    void preOrder(Node* node, ofstream& out){
+        if(node == nullptr)
+            return;
 
-        node->setColor(black);
-        time++;
-        node->setF(time);
-        l.push(node);
+        out<<"Key: "<<node->getK()<<endl;
+        preOrder(node->getL(),out);
+        preOrder(node->getR(),out);
     }
 
 public:
-    Graph(ifstream& in){
+    ABR() : root(nullptr) {}
+    Node* getRoot(){return root;}
+    void insert(int key){root = insertRec(root,key);}
+    Node* search(int key, Node* node){
+        if (node == nullptr || key == node->getK())
+            return node;
+        if (key < node->getK())
+            return search(key, node->getL());
+        else
+            return search(key, node->getR());
+    }
 
-        in >> V >> E;
-
-        for(int i =0; i < V; i++)
-            addNode(new Node(i));
-
-        for(int i = 0; i < E; i++){
-            int u, v, w;
-            in >> u >> v >>w;
-            Node * src = getNode(u);
-            Node * dest = getNode(v);
-            if(src && dest )
-                addEdge(src, dest, w);
-            else
-                cout<<"non è stato possibile inserire l'arco in quanto uno o entrambi i nodi non esistono"<<endl;
-
+    Node* getSucc(Node* node){
+        if(node == nullptr)
+            return nullptr;
+        if(node->getR() != nullptr)
+            return minimum(node->getR());
+        Node* node2 = node->getP();
+        while(node2 != nullptr && node == node2->getR()){
+            node = node2;
+            node2 = node->getP();
         }
-        in.close();
+        return node2;
     }
-
-    void addNode(Node* node){
-        nodes.push_back(node);
-
-        if(V < nodes.size())
-            V = nodes.size();
-    }
-
-    Node* getNode(int u){
-        for(auto& node : nodes){
-            if(node->getK() == u)
-                return node;
+    Node* getPre(Node* node){
+        if(node == nullptr)
+            return node;
+        if(node->getL() != nullptr)
+            return maximum(node->getL());
+        Node* node2 = node->getP();
+        while(node2 != nullptr && node == node2->getL()){
+            node = node2;
+            node2 = node->getP();
         }
-        return nullptr;
+        return node2;
     }
-    void addEdge(Node* node1, Node* node2, int w){
-
-        edges.push_back(new Edge(node1, node2,w));
-        node1->setAdj(node2);
-        //node2->setAdj(node1);
-
-        if(E < edges.size())
-            E = edges.size();
+    void writeSucc(Node* node, ofstream& out){
+        Node* succ = getSucc(node);
+        if(succ != nullptr)
+            out<< "Chiave del successore: "<<succ->getK()<<endl;
+        else
+            out<<"Non ha un successore "<<endl;
     }
+    void writePredecessor(Node* x, ofstream& out) {
+        Node* pred = getPre(x);
 
-    void DFS(){
-        for(auto&node : nodes){
-            node->setColor(white);
-            node->setP(nullptr);
-        }
-        time = 0;
-        for(auto&node : nodes){
-            if(node->getC() == white)
-                DFS_VISIT(node);
-        }
+        if (pred != nullptr)
+            out << "Predecessor's key: " << pred->getK()<< endl;
+        else
+            out << "This node doesn't have a predecessor!" << endl;
     }
-    void print(ofstream& out){
+    void preorder(ofstream& out){ preOrder(root,out);}
 
-        while(!l.empty()){
-            Node* node = l.top();
-            l.pop();
-
-            if(node->getP() != nullptr)
-                out<<"node: "<<node->getK()<<", predecessor: "<<node->getP()->getK()<<", discovery time: "<<node->getD()<<", finish time: "<<node->getF()<<endl;
-            else
-                out<<"node: "<<node->getK()<<", predecessor: NULL"<<", discovery time: "<<node->getD()<<", finish time: "<<node->getF()<<endl;
-        }
-    }
 };
-
-int main(){
+int main() {
     ifstream in("input.txt");
     ofstream out("output.txt");
 
-    Graph grafo(in);
-    grafo.DFS();
-    grafo.print(out);
+    ABR abr;
+
+    int k;
+    while (in >> k)
+        abr.insert(k);
+
+    abr.preorder(out);
+
+    Node* x = abr.search(15,abr.getRoot());
+    abr.writeSucc(x, out);
+
+    x = abr.search(15,abr.getRoot());
+    abr.writePredecessor(x, out);
+
+    in.close();
+    out.close();
+
+    /*
+    abr.generateHuffmanTable();
+
+    string encodedString = abr.encodeString("ACE");
+    cout << "Encoded string: " << encodedString << endl;
+
+    string decodedString = abr.decodeString(encodedString);
+    cout << "Decoded string: " << decodedString << endl;
+
+
+    x = abr.search(abr.getRoot(), 30);
+    Node* y = abr.search(abr.getRoot(), 50);
+    abr.transplant(x,y);
+    abr.preorder(out);
+    out.close();
+    */
+
+    return 0;
 }

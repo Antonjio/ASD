@@ -728,8 +728,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/BFS/cmake-build-debug",
-		"source" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/BFS"
+		"build" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Heap/MinHeap/cmake-build-debug",
+		"source" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Heap/MinHeap"
 	},
 	"version" : 
 	{

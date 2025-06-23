@@ -2,7 +2,7 @@
 	"entries" : 
 	[
 		{
-			"name" : "ABR_BINARY_DIR",
+			"name" : "BFS_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -11,10 +11,10 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/ABR/cmake-build-debug"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/BFS/cmake-build-debug"
 		},
 		{
-			"name" : "ABR_IS_TOP_LEVEL",
+			"name" : "BFS_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -26,7 +26,7 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "ABR_SOURCE_DIR",
+			"name" : "BFS_SOURCE_DIR",
 			"properties" : 
 			[
 				{
@@ -35,7 +35,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/ABR"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/BFS"
 		},
 		{
 			"name" : "CMAKE_ADDR2LINE",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/ABR/cmake-build-debug"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/BFS/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -715,7 +715,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/ABR"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/BFS"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -959,7 +959,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "ABR"
+			"value" : "BFS"
 		},
 		{
 			"name" : "CMAKE_RANLIB",

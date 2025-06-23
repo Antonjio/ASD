@@ -728,8 +728,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Heap/MaxHeap/cmake-build-debug",
-		"source" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Heap/MaxHeap"
+		"build" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Huffman/cmake-build-debug",
+		"source" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Huffman"
 	},
 	"version" : 
 	{

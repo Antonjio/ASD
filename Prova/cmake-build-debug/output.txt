@@ -1,5 +1,7 @@
-node: 0, predecessor: NULL, discovery time: 1, finish time: 10
-node: 2, predecessor: 0, discovery time: 8, finish time: 9
-node: 1, predecessor: 0, discovery time: 2, finish time: 7
-node: 3, predecessor: 1, discovery time: 3, finish time: 6
-node: 4, predecessor: 3, discovery time: 4, finish time: 5
+Key: 40
+Key: 30
+Key: 15
+Key: 10
+Key: 5
+Chiave del successore: 30
+Predecessor's key: 10

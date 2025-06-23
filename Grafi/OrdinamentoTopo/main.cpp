@@ -298,3 +298,145 @@ int main(){
     grafo.DFS();
     grafo.print(out);
 }
+
+/*
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <stack>
+#include <climits>
+
+using namespace std;
+enum Color{white,gray,black};
+class Node{
+private:
+    int val;
+    Color colore;
+    Node* p;
+    int d;
+    int f;
+    vector<Node*> adj;
+public:
+    int getVal(){return val;}
+    int getD(){return d;}
+    int getF(){return f;}
+    Node* getP(){return p;}
+    vector<Node*> getAdj(){return adj;}
+    Color getColore(){return colore;}
+
+    void setVal(int v){val = v;}
+    void setP(Node* n){p = n;}
+    void setD(int time){d = time;}
+    void setF(int time){f = time;}
+    void setAdj(Node* node){adj.push_back(node);}
+    void setColore(Color c){colore = c;}
+
+    Node(int v) : val(v), p(nullptr), d(INT_MAX), f(INT_MAX), colore(white){}
+};
+class Edge{
+private:
+    Node* src;
+    Node* dest;
+    int weigth;
+
+public:
+    Edge(Node* n1, Node* n2, int w) : src(n1), dest(n2), weigth(w){}
+
+    void setSrc(Node* node){src = node;}
+    void setDest(Node* node){dest = node;}
+    void setW(int w){weigth = w;}
+
+    Node* getSrc(){return src;}
+    Node* getDest(){return dest;}
+    int getw(){return weigth;}
+};
+
+class Graph{
+private:
+    vector<Node*> nodes;
+    vector<Edge*> edges;
+    int V, E, time = 0;
+    stack<Node*> l;
+    void DFSVisit(Node* node){
+        node->setColore(gray);
+        time++;
+        node->setD(time);
+
+        for(auto& adj : node->getAdj()){
+            if(adj->getColore() == white){
+                adj->setP(node);
+                DFSVisit(adj);
+            }
+        }
+        time++;
+        node->setColore(black);
+        node->setF(time);
+        l.push(node);
+    }
+
+public:
+    Graph(ifstream& in){
+        in >> V >> E;
+        for(int i = 0; i < V; i++){
+            addNode(new Node(i));
+        }
+        int v, u, w;
+        while(in >> v >> u >> w){
+            Node* src = getNode(v);
+            Node* dest = getNode(u);
+            if(src && dest)
+                addEdge(src,dest,w);
+            else
+                cout<<"Arco non aggiunto perche i nodi non combaciano"<<endl;
+        }
+        in.close();
+    }
+
+    void addNode(Node* node){
+        nodes.push_back(node);
+        if(nodes.size() > V)
+            V = nodes.size();
+    }
+    Node* getNode(int u){
+        for(auto& i : nodes){
+            if(i->getVal() == u)
+                return i;
+        }
+    }
+    void addEdge(Node* src, Node* dest, int w){
+        edges.push_back(new Edge(src,dest,w));
+        src->setAdj(dest);
+
+        if(E < edges.size())
+            E = edges.size();
+    }
+    void DFS(){
+        for(auto& node : nodes){
+            node->setColore(white);
+            node->setP(nullptr);
+        }
+        time = 0;
+        for(auto& node : nodes){
+            if(node->getColore() == white)
+                DFSVisit(node);
+        }
+    }
+
+    void printF(ofstream& out){
+        for(auto& node : nodes){
+            if(node->getP() == nullptr)
+                out<<"Node: "<<node->getVal()<<"predecessor: NULLPTR "<<"discovery time: "<<node->getD()<<"finish time: "<<node->getF()<<endl;
+            else
+                out<<"Node: "<<node->getVal()<<"predecessor: "<<node->getP()->getVal()<<"discovery time: "<<node->getD()<<" finish time: "<<node->getF()<<endl;
+        }
+    }
+};
+
+int main(){
+    ifstream in("input.txt");
+    ofstream out("output.txt");
+
+    Graph grafo(in);
+    grafo.DFS();
+    grafo.printF(out);
+}*/

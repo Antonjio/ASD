@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Heap/MinHeap/cmake-build-debug"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Heap/MaxHeap/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -679,7 +679,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Heap/MinHeap"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Heap/MaxHeap"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -923,7 +923,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "MinHeap"
+			"value" : "MaxHeap"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1206,7 +1206,7 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "MinHeap_BINARY_DIR",
+			"name" : "MaxHeap_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -1215,10 +1215,10 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Heap/MinHeap/cmake-build-debug"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Heap/MaxHeap/cmake-build-debug"
 		},
 		{
-			"name" : "MinHeap_IS_TOP_LEVEL",
+			"name" : "MaxHeap_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -1230,7 +1230,7 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "MinHeap_SOURCE_DIR",
+			"name" : "MaxHeap_SOURCE_DIR",
 			"properties" : 
 			[
 				{
@@ -1239,7 +1239,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Heap/MinHeap"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Heap/MaxHeap"
 		},
 		{
 			"name" : "ProcessorCount_cmd_nproc",

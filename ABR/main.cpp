@@ -75,6 +75,7 @@ private:
         return x;
     }
 public:
+    ABR() : root(nullptr) {}
     Node* getRoot(){return root;}
     void insert(int key,char character){root = insertRec(root,key,character);}
     void preorder(ofstream& out){ preOrder(root,out);}
