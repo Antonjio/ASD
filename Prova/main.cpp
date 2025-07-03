@@ -1,156 +1,97 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-
+#include <sstream>
 using namespace std;
 
-class Node{
+class Heap{
+
 private:
-    int k;
-    Node* p;
-    Node* left;
-    Node* right;
+    vector<int> data;
+    int heapsize;
 
+    void buildMinHeap(){
+        for(int i = heapsize / 2; i >= 0; i--)
+            heapify(i);
+    }
+
+    void heapify(int i){
+        int max = i;
+        int l = i * 2 + 1;
+        int r = i * 2 + 2;
+
+        if(l < heapsize && data[l] < data[max])
+            max = l;
+        if(r < heapsize && data[r] < data[max])
+            max = r;
+        if(max != i){
+            swap(data[max],data[i]);
+            heapify(max);
+        }
+    }
+
+    void load(ifstream& in){
+        string totalToken;
+        getline(in,totalToken);
+        if(totalToken.front() == '<') totalToken = totalToken.substr(1);
+        if(totalToken.back() == '>') totalToken.pop_back();
+
+        for(char& c : totalToken) c = c ==',' ? ' ': c;
+
+        istringstream stream;
+        int k;
+        while(stream >> k)
+            data.push_back(k);
+    }
+
+    int search(int val){
+        if(heapsize == 0)
+            return -1;
+        for(int i = 0; i < heapsize; i++){
+            if(val == data[i])
+                return data[i];
+        }
+        return -1;
+    }
+
+    void shiftUp(int i){
+        while(i > 0 && data[(i-1) / 2] > data[i]){
+            swap(data[(i-1) / 2] , data[i]);
+            i = (i-1)/2;
+        }
+    }
 public:
-    Node(int chiave) : k(chiave), p(nullptr), left(nullptr), right(nullptr){}
-    void setK(int key){k = key;}
-    void setP(Node* n){p = n;}
-    void setR(Node* n){right = n;}
-    void setL(Node* n){left= n;}
 
-    Node*getP(){return p;}
-    Node*getL(){return left;}
-    Node*getR(){return right;}
-    int getK(){return k;}
-};
-class ABR{
-private:
-    Node* root;
-    Node* insertRec(Node* node, int key){
-        if(node == nullptr)
-            return new Node(key);
-        if(node->getK() > key){
-            Node* leftChild = insertRec(node->getL(),key);
-            node->setL(leftChild);
-            leftChild->setP(node);
-        } else {
-            Node* rightChild = insertRec(node->getR(),key);
-            node->setR(rightChild);
-            rightChild->setP(node);
+    Heap(ifstream& in){
+        load(in);
+        heapsize = data.size();
+        buildMinHeap();
+    }
+
+    void heapSort(){
+        for(int i = heapsize - 1; i >= 0; i--){
+            swap(data[0],data[i]);
+            heapsize--;
+            heapify(0);
         }
-        return node;
-    }
-    Node* minimum(Node* node){
-        while(node->getL() != nullptr)
-            node = node->getL();
-        return node;
-    }
-    Node* maximum(Node* node){
-        while(node->getR() != nullptr)
-            node = node->getR();
-        return node;
-    }
-    void preOrder(Node* node, ofstream& out){
-        if(node == nullptr)
-            return;
-
-        out<<"Key: "<<node->getK()<<endl;
-        preOrder(node->getL(),out);
-        preOrder(node->getR(),out);
     }
 
-public:
-    ABR() : root(nullptr) {}
-    Node* getRoot(){return root;}
-    void insert(int key){root = insertRec(root,key);}
-    Node* search(int key, Node* node){
-        if (node == nullptr || key == node->getK())
-            return node;
-        if (key < node->getK())
-            return search(key, node->getL());
-        else
-            return search(key, node->getR());
+    int extractMin(){
+        if(heapsize == 0)
+            return -1;
+        int min = data[0];
+        swap(data[0],data[heapsize-1]);
+        heapsize--;
+        data.pop_back();
+        heapify(0);
+        return min;
     }
 
-    Node* getSucc(Node* node){
-        if(node == nullptr)
-            return nullptr;
-        if(node->getR() != nullptr)
-            return minimum(node->getR());
-        Node* node2 = node->getP();
-        while(node2 != nullptr && node == node2->getR()){
-            node = node2;
-            node2 = node->getP();
-        }
-        return node2;
+    void decreaseKey(int k1, int k2){
+        if(k1 < k2)
+            return
     }
-    Node* getPre(Node* node){
-        if(node == nullptr)
-            return node;
-        if(node->getL() != nullptr)
-            return maximum(node->getL());
-        Node* node2 = node->getP();
-        while(node2 != nullptr && node == node2->getL()){
-            node = node2;
-            node2 = node->getP();
-        }
-        return node2;
-    }
-    void writeSucc(Node* node, ofstream& out){
-        Node* succ = getSucc(node);
-        if(succ != nullptr)
-            out<< "Chiave del successore: "<<succ->getK()<<endl;
-        else
-            out<<"Non ha un successore "<<endl;
-    }
-    void writePredecessor(Node* x, ofstream& out) {
-        Node* pred = getPre(x);
 
-        if (pred != nullptr)
-            out << "Predecessor's key: " << pred->getK()<< endl;
-        else
-            out << "This node doesn't have a predecessor!" << endl;
-    }
-    void preorder(ofstream& out){ preOrder(root,out);}
+
 
 };
-int main() {
-    ifstream in("input.txt");
-    ofstream out("output.txt");
-
-    ABR abr;
-
-    int k;
-    while (in >> k)
-        abr.insert(k);
-
-    abr.preorder(out);
-
-    Node* x = abr.search(15,abr.getRoot());
-    abr.writeSucc(x, out);
-
-    x = abr.search(15,abr.getRoot());
-    abr.writePredecessor(x, out);
-
-    in.close();
-    out.close();
-
-    /*
-    abr.generateHuffmanTable();
-
-    string encodedString = abr.encodeString("ACE");
-    cout << "Encoded string: " << encodedString << endl;
-
-    string decodedString = abr.decodeString(encodedString);
-    cout << "Decoded string: " << decodedString << endl;
-
-
-    x = abr.search(abr.getRoot(), 30);
-    Node* y = abr.search(abr.getRoot(), 50);
-    abr.transplant(x,y);
-    abr.preorder(out);
-    out.close();
-    */
-
-    return 0;
-}

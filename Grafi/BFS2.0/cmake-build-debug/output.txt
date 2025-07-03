@@ -1,0 +1,5 @@
+node: 0 predecessor: NULLPTR Distance: 0
+node: 1 predecessor: 0 Distance: 1
+node: 2 predecessor: 0 Distance: 1
+node: 3 predecessor: 1 Distance: 2
+node: 4 predecessor: 1 Distance: 2

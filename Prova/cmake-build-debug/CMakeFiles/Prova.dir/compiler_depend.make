@@ -190,8 +190,12 @@ CMakeFiles/Prova.dir/main.cpp.o: ../main.cpp \
   /usr/include/c++/11/bits/stl_uninitialized.h \
   /usr/include/c++/11/bits/stl_vector.h \
   /usr/include/c++/11/bits/stl_bvector.h \
-  /usr/include/c++/11/bits/vector.tcc
+  /usr/include/c++/11/bits/vector.tcc \
+  /usr/include/c++/11/sstream \
+  /usr/include/c++/11/bits/sstream.tcc
 
+
+/usr/include/c++/11/sstream:
 
 /usr/include/c++/11/bits/vector.tcc:
 
@@ -540,6 +544,8 @@ CMakeFiles/Prova.dir/main.cpp.o: ../main.cpp \
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
+
+/usr/include/c++/11/bits/sstream.tcc:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h:
 
