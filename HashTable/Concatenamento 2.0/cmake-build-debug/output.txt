@@ -1,0 +1,10 @@
+index: 0 -> [key: 20 - value: pippo] -> [key: 10 - value: cazzo]
+index: 1 -> empty bucket
+index: 2 -> [key: 22 - value: milito]
+index: 3 -> empty bucket
+index: 4 -> empty bucket
+index: 5 -> empty bucket
+index: 6 -> empty bucket
+index: 7 -> empty bucket
+index: 8 -> empty bucket
+index: 9 -> [key: 69 - value: madonnaputtanamaledetta]

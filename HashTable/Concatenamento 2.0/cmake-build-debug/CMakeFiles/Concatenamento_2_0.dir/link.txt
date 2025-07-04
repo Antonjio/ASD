@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/Concatenamento_2_0.dir/main.cpp.o -o Concatenamento_2_0 
