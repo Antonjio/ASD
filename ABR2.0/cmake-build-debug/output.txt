@@ -1,0 +1,8 @@
+Valore: 40
+Valore: 22
+Valore: 12
+Valore: 10
+Valore: 21
+Valore: 24
+Valore: 99
+Valore: 44
