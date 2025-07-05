@@ -1,58 +1,55 @@
 #include <iostream>
-#include <vector>
 #include <fstream>
+#include <vector>
 #include <sstream>
 
 using namespace std;
-
 template<typename K, typename V>
 class Item{
-private:
     K key;
     V value;
 public:
-    Item(K k, V v) : key(k), value(v){}
-    K getK(){return key;}
-    V getV(){return value;}
+
+    Item(K k, V v) : key(k), value(v) {}
+    K getKey(){return key;}
+    V getValue(){return value;}
 };
 
 template<typename K, typename V>
 class Hash{
-private:
-    vector<Item<K,V>*> hash;
-    int size;
+    vector<Item<K,V>*> data;
+    int hashsize;
 
-    int h(int key, int i){
-        return (i+key) % size;
-    }
+    int h(K key, int i){return (key + i) % hashsize;}
+
     void load(ifstream& in){
-        string totalToken;
+        string tokens;
+        while (getline(in,tokens)){
+            if(tokens.front() == '<') tokens = tokens.substr(1);
+            if(tokens.back() == '>') tokens.pop_back();
+            for(char& c : tokens) c = c == ',' ? ' ' : c;
 
-        while (getline(in,totalToken)){
-            if(totalToken.front() == '<') totalToken = totalToken.substr(1);
-
-            if(totalToken.back() == '>') totalToken.pop_back();
-
-
-            for(char& c : totalToken) c = c == ',' ? ' ' : c;
-            istringstream stream(totalToken);
             K k; V v;
-            while (stream >> k >> v){
+            istringstream stream(tokens);
+            while(stream >> k >> v)
                 insertH(new Item<K,V>(k,v));
-            }
         }
+
     }
+
 public:
-    Hash(ifstream& in, int s) : size(s) {hash.resize(size, nullptr);load(in);}
-    void insertH(Item<K,V>* item){
+    Hash(ifstream& in, int size) : hashsize(size) {data.resize(hashsize, nullptr); load(in);}
+
+    void insertH(Item<K,V> * item){
         int i = 0;
-        while (i < size){
-            int index = h(item->getK(),i);
-            if(hash[index] == nullptr){
-                hash[index] = item;
+        while (i < hashsize){
+            int index = h(item->getKey(), i);
+            if(!data[index]){
+                data[index] = item;
+                cout<<"elemento inserito"<<endl;
                 return;
             }
-            if(hash[index]->getK() == item->getK()){
+            if(data[index]->getKey() == item->getKey()){
                 cout<<"elemento gia inserito"<<endl;
                 return;
             }
@@ -62,59 +59,59 @@ public:
     }
 
     void deleteH(K key){
-        int i =0;
-        int index;
-        while (i < size){
-            index = h(key,i);
-            if(hash[index]->getK() == key){
-                hash[index] = nullptr;
+        int i = 0;
+        while (i < hashsize){
+            int index = h(key,i);
+            if(data[index] == nullptr){
+                cout<<"element not found in the delete"<<endl;
                 return;
             }
-            if(!hash[index]){
-                cout<<"element not found"<<endl;
+            if(data[index]->getKey() == key){
+                data[index] = nullptr;
+                cout<<"elemento eliminato stampa senza quell'elemento:"<<endl;
+                for(int i = 0; i < hashsize; i++){
+                    if(data[i])
+                        cout<<"index: "<<i<<" key: "<<data[i]->getKey()<<" value: "<<data[i]->getValue()<<endl;
+                }
                 return;
             }
             i++;
         }
-        cout<<"element not found"<<endl;
-        return;
     }
 
-    string search(K key){
+    Item<K,V>* search(K key){
         int i =0;
-        int index;
-        while (i < size){
-            index = h(key,i);
-            if(hash[index]->getK() == key){
-                return hash[index]->getV();
+        while (i < hashsize){
+            int index = h(key,i);
+            if(data[index] == nullptr){
+                cout<<"element not found in the search"<<endl;
+                return nullptr;
             }
-            if(hash[index] == nullptr){
-                cout<<"element not found"<<endl;
-                return "";
-            }
+            if(data[index]->getKey() == key)
+                return data[index];
             i++;
         }
-        cout<<"element not found"<<endl;
-        return "";
+        return nullptr;
     }
 
-    void printF(ofstream& out){
-        for(int i = 0; i < size; i++){
-            if(hash[i])
-                out<<"index: "<<i<<" key: "<<hash[i]->getK()<<" Value: "<<hash[i]->getV()<<endl;
+    void print(ofstream& out){
+        for(int i = 0; i < hashsize; i++){
+            if(data[i])
+                out<<"index: "<<i<<" key: "<<data[i]->getKey()<<" value: "<<data[i]->getValue()<<endl;
         }
     }
-
-
 };
-int main() {
 
+int main(){
     ifstream in("input.txt");
     ofstream out("output.txt");
 
-    Hash<int, string>ht(in,10);
-    ht.printF(out);
+    Hash<int,string> ht(in,10);
 
+    ht.print(out);
+    ht.deleteH(100);
+    Item<int,string>* item = ht.search(11);
+    if(item)
+        cout<<"item trovato, chiave: "<<item->getKey()<<" value: "<<item->getValue()<<endl;
 
-    return 0;
 }

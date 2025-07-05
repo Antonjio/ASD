@@ -133,7 +133,7 @@ int main() {
         cout<<"predecessore non trovato"<<endl;
     else
         cout<<"predecessore di: 12 è: "<<pre->getVal()<<endl;
-    Node* succ = abr.getSucc(22);
+    Node* succ = abr.getSucc(12);
     if(!succ)
         cout<<"successore non trovato"<<endl;
     else
