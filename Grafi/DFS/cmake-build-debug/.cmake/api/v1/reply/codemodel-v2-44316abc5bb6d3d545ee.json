@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/DFS/cmake-build-debug",
-		"source" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/DFS"
+		"build" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/DFS/cmake-build-debug",
+		"source" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/DFS"
 	},
 	"version" : 
 	{

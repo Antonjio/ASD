@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/DFS/cmake-build-debug"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/DFS/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -679,7 +679,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/DFS"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/DFS"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1215,7 +1215,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/DFS/cmake-build-debug"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/DFS/cmake-build-debug"
 		},
 		{
 			"name" : "DFS_IS_TOP_LEVEL",
@@ -1239,7 +1239,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/anton/Desktop/ASD/FeroneCodice/Grafi/DFS"
+			"value" : "/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/DFS"
 		},
 		{
 			"name" : "ProcessorCount_cmd_nproc",
