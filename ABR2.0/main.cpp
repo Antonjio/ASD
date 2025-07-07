@@ -114,7 +114,21 @@ public:
         preorder(out,node->getL());
         preorder(out,node->getR());
     }
+    void postOrder(ofstream& out, Node* node){
+        if(!node)
+            return;
+        postOrder(out, node->getR());
+        postOrder(out, node->getL());
+        out<<"nodo: "<<node->getVal()<<endl;
+    }
 
+    void inOrder(ofstream& out, Node* node){
+        if(!node)
+            return;
+        inOrder(out,node->getL());
+        out<<"Nodo: "<<node->getVal()<<endl;
+        inOrder(out, node->getR());
+    }
 
 };
 
