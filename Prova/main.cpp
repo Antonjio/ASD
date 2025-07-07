@@ -2,89 +2,123 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include <queue>
 #include <climits>
+
 using namespace std;
-enum Color {white, gray, black};
-
+enum Color{white,gray,black};
 class Node{
-
-    int val;
     Node* parent;
-    int distance;
-    vector<Node*> adj;
+    int f;
+    int d;
+    int val;
     Color colore;
+    vector<Node*>adj;
+
 public:
-    Node(int val) : parent(nullptr), distance(INT_MAX), colore(white), val(val) {}
+    Node(int v) : val(v), f(INT_MAX), d(INT_MAX), parent(nullptr),colore(white) {}
 
-    void setVal(int v){val = v;}
-    void setP(Node* n){parent = n;}
-    void setDistance(int time){distance = time;}
-    void setAdj(Node* node){adj.push_back(node);}
-    void setColor(Color c){colore = c;}
+    void setP(Node* n){parent=n;}
+    void setF(int time){f = time;}
+    void setD(int time){d = time;}
+    void setV(int v){val = v;}
+    void setC(Color c){colore=c;}
+    void setAdj(Node* n){adj.push_back(n);}
 
-    int getVal(){return val;}
     Node* getParent(){return parent;}
-    int getDistance(){return distance;}
-    vector<Node*> getadj(){return adj;}
-    Color getColor(){return colore;}
-
+    int getF(){return f;}
+    int getD(){return d;}
+    int getVal(){return val;}
+    Color getC(){return colore;}
+    vector<Node*> getAdj(){return adj;}
 };
-
 class Edge{
     Node* src;
     Node* dest;
     int weight;
-
+    string type;
 public:
-    Edge(Node* node1, Node* node2, int w) : src(node1), dest(node2), weight(w){}
-
-    void setSrc(Node * n){src = n;}
-    void setDest(Node* n){dest = n;}
-    void setW(int w){weight = w;}
+    Edge(Node* n1, Node* n2, int w) : src(n1), dest(n2), weight(w), type("") {}
 
     Node* getSrc(){return src;}
     Node* getDest(){return dest;}
     int getW(){return weight;}
+    string getType(){return type;}
+
+    void setType(string tipo) {type = tipo;}
 };
 
 class Graph{
     vector<Node*> nodes;
     vector<Edge*> edges;
+    int V, E, time, cycles;
 
-    int V, E, time;
     void load(ifstream& in){
         string tokens;
-        getline(in, tokens);
+        getline(in,tokens);
         if(tokens.front() == '<') tokens = tokens.substr(1);
         if(tokens.back() == '>') tokens.pop_back();
-
         for(char& c : tokens) c = c == ',' ? ' ' : c;
+
         istringstream stream(tokens);
         stream >> V >> E;
-
-        for(int i =0; i < V; i++)
+        for(int i = 0; i < V; i++)
             addNode(new Node(i));
-
-        while (getline(in, tokens)){
+        while(getline(in,tokens)){
             if(tokens.front() == '<') tokens = tokens.substr(1);
             if(tokens.back() == '>') tokens.pop_back();
-
             for(char& c : tokens) c = c == ',' ? ' ' : c;
-            istringstream stream(tokens);
             int u, v, w;
-            while(stream >> u >> v >> w){
-                Node* node1 = getNode(u);
-                Node* node2 = getNode(v);
-                if(node1 && node2)
-                    addEdge(new Edge(node1,node2,w));
+            istringstream stream(tokens);
+            while (stream >> u >> v >> w){
+                Node* src = getNode(u);
+                Node* dest = getNode(v);
+                if(src && dest)
+                    addEdge(new Edge(src,dest,w));
             }
         }
-
     }
 
+    void dfsVisit(Node* node, vector<Node*> path){
+        time++;
+        node->setC(gray);
+        node->setD(time);
+        path.push_back(node);
+
+        for(auto& adj : node->getAdj()){
+            Edge* edge = getEdge(node, adj);
+
+            if(adj->getC() == white){
+                edge->setType("albero");
+                adj->setP(node);
+                dfsVisit(adj,path);
+            } else if(adj->getC() == gray){
+                cout<<"ciclo trovato"<<endl;
+                edge->setType("all'indietro");
+                int index = -1;
+                for(int i =0; i < path.size(); i++){
+                    if(path[i] == adj){
+                        index = i;
+                        break;
+                    }
+                }
+                if(index != -1){
+                    for(int i = index; i < path.size(); i++)
+                        cout<<path[i]->getVal()<<" ";
+                    cout<< adj->getVal()<< endl;
+                    cycles++;
+                }
+            } else if(adj->getC() == black && node->getD() < adj->getD())
+                edge->setType("in avanti");
+            else if(adj->getC() == black && node->getD() > adj->getD())
+                edge->setType("trasversale");
+        }
+        time++;
+        node->setC(black);
+        node->setF(time);
+        path.pop_back();
+    }
 public:
-    Graph(ifstream& in) {load(in);}
+    Graph(ifstream& in) : time(0), cycles(0){ load(in);}
 
     void addNode(Node* n){
         nodes.push_back(n);
@@ -98,48 +132,59 @@ public:
         }
         return nullptr;
     }
-    void addEdge(Edge* e){
-        edges.push_back(e);
+    void addEdge(Edge* edge){
+        edges.push_back(edge);
         if(E < edges.size())
             E = edges.size();
-        e->getSrc()->setAdj(e->getDest());
-        e->getDest()->setAdj(e->getSrc());
+        edge->getSrc()->setAdj(edge->getDest());
     }
-
-    void BFS(ofstream& out, Node* s){
+    Edge* getEdge(Node* src, Node* dest){
+        for(auto& edge : edges){
+            if(edge->getSrc() == src && edge->getDest() == dest)
+                return edge;
+        }
+        return nullptr;
+    }
+    void dfs(){
         for(auto& node : nodes){
-            node->setColor(white);
+            node->setC(white);
             node->setP(nullptr);
         }
-        s->setDistance(0);
-        s->setColor(gray);
-        queue<Node*> q;
-        q.push(s);
-        while(!q.empty()){
-            Node* node = q.front();
-            q.pop();
-            for(auto& adj : node->getadj()){
-                if(adj->getColor() == white){
-                    adj->setP(node);
-                    adj->setDistance(node->getDistance() + 1);
-                    adj->setColor(gray);
-                    q.push(adj);
-                }
-            }
-            node->setColor(black);
-        }
+        vector<Node*> path;
+        cycles = 0;
+
         for(auto& node : nodes){
-            if(node->getParent())
-                out<<"node: "<<node->getVal()<<" parent: "<<node->getParent()->getVal()<<" distance: "<<node->getDistance()<<endl;
-            else
-                out<<"node: "<<node->getVal()<<" parent: NULLPTR"<<" distance: "<<node->getDistance()<<endl;
+            if(node->getC() == white)
+                dfsVisit(node,path);
         }
     }
+
+    void printEdges(){
+        for(auto& edge : edges)
+            cout<<"src: "<<edge->getSrc()->getVal()<<" dest: "<<edge->getDest()->getVal()<<" weight: "<<edge->getW()<<" type: "<<edge->getType()<<endl;
+    }
+    void printGraph(ofstream& out){
+        for(auto& node : nodes){
+            if(node->getParent())
+                out<<"node: "<<node->getVal()<<" parent: "<<node->getParent()->getVal()<<" d time: "<<node->getD()<<" f time: "<<node->getF()<<endl;
+            else
+                out<<"node: "<<node->getVal()<<" parent: NULLPTR d time: "<<node->getD()<<" f time: "<<node->getF()<<endl;
+
+        }
+
+    }
+    int getCycleCount (){return cycles;}
 };
 int main(){
+
     ifstream in("input.txt");
     ofstream out("output.txt");
+    Graph graph(in);
 
-    Graph grafo(in);
-    grafo.BFS(out,grafo.getNode(0));
+    graph.dfs();
+    graph.printGraph(out);
+    cout << endl << endl;
+    graph.printEdges();
+    cout<< "Numero di cicli: " << graph.getCycleCount() << endl;
+
 }
