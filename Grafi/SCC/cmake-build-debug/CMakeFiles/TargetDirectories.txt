@@ -1,0 +1,3 @@
+/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/SCC/cmake-build-debug/CMakeFiles/SCC.dir
+/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/SCC/cmake-build-debug/CMakeFiles/edit_cache.dir
+/mnt/c/Users/anton/Desktop/ASD/ASD/Grafi/SCC/cmake-build-debug/CMakeFiles/rebuild_cache.dir
