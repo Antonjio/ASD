@@ -1,5 +1,5 @@
-node: 0 parent: NULLPTR discovery time: 1 finish time: 10
-node: 1 parent: 0 discovery time: 2 finish time: 7
-node: 2 parent: 0 discovery time: 8 finish time: 9
-node: 3 parent: 1 discovery time: 3 finish time: 6
-node: 4 parent: 3 discovery time: 4 finish time: 5
+node: 0 parent: NULLPTR d time: 1 f time: 10
+node: 1 parent: 0 d time: 2 f time: 7
+node: 2 parent: 0 d time: 8 f time: 9
+node: 3 parent: 1 d time: 3 f time: 6
+node: 4 parent: 3 d time: 4 f time: 5
